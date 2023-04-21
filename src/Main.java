@@ -4,54 +4,14 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        ArrayList<String> teamList = new ArrayList();
+        // instance / object
+        Player p1 = new Player("Devin Booker", 2500.00f, "All Star", 26, 1, "Suns");
 
-        // ADD NEW TEAMS
-        teamList.add("Suns");       // 0
-        teamList.add("Team 1");     // 1
-        teamList.add("Team 2");     // 2
+        System.out.println(p1.getName());
 
-        // DISPLAY TEAMS
-//        for (String team: teamList){
-//            System.out.println(team);
-//        }
+        p1.setName("abc");
 
-        // UPDATE A TEAM
-//        for qua từng team, team nào có tên giống với tên cần update -> teamList.set(...)
-//        System.out.print("Enter name of the team you want to update: ");
-//        Scanner sc = new Scanner(System.in);
-//        String updateTeamName = sc.nextLine();
-//
-//        System.out.print("New name: ");
-//        sc = new Scanner(System.in);
-//        String newName = sc.nextLine();
-//
-//        for (int i = 0; i < teamList.size(); ++i) {
-//            String team = teamList.get(i);
-//
-//            if (team.equals(updateTeamName)) {
-//                teamList.set(i, newName);
-//                break;
-//            }
-//        }
+        System.out.println(p1.getName());
 
-
-        // REMOVE A TEAM
-//        System.out.println("Enter name of the team you want to delete: ");
-//        Scanner sc = new Scanner(System.in);
-//        String deleteTeamName = sc.nextLine();
-//
-//        for (int i = 0; i < teamList.size(); ++i) {
-//            String team = teamList.get(i);
-//
-//            if (team.equals(deleteTeamName)) {
-//                teamList.remove(i);
-//                break;
-//            }
-//        }
-
-        for (String team : teamList) {
-            System.out.println(team);
-        }
     }
 }
