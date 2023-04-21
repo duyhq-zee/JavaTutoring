@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         // instance / object
-        Player p1 = new Player("Devin Booker", 2500.00f, "All Star", 26, 1, "Suns");
+        Player p1 = new Player("Devin Booker", 2500.00f, 26, 1);
 
         System.out.println(p1.getName());
 

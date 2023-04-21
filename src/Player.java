@@ -1,18 +1,14 @@
 public class Player {
     private String name;
     private float credit;
-    private String level;
     private int age;
     private int no;
-    private String team;
 
-    public Player(String name, float credit, String level, int age, int no, String team) {
+    public Player(String name, float credit, int age, int no) {
         this.name = name;
         this.credit = credit;
-        this.level = level;
         this.age = age;
         this.no = no;
-        this.team = team;
     }
 
     public String getName() {
@@ -31,14 +27,6 @@ public class Player {
         this.credit = credit;
     }
 
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
     public int getAge() {
         return age;
     }
@@ -53,13 +41,5 @@ public class Player {
 
     public void setNo(int no) {
         this.no = no;
-    }
-
-    public String getTeam() {
-        return team;
-    }
-
-    public void setTeam(String team) {
-        this.team = team;
     }
 }
