@@ -31,7 +31,23 @@ public class Menu {
                     System.out.print("Enter name of the team you want to add: ");
                     sc = new Scanner(System.in);
                     String teamName = sc.nextLine();
-                    teamList.add(teamName);
+
+                    boolean hasExisted = false;
+
+                    for (String team : teamList) {
+                        if (team.equals(teamName)) {
+                            hasExisted = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasExisted) {
+                        teamList.add(teamName);
+                        System.out.println("Added team " + teamName);
+                    } else {
+                        System.out.println("Team " + teamName + " has existed");
+                    }
+
                     break;
                 case '3':
                     System.out.print("Enter name of the team you want to update: ");
@@ -42,15 +58,23 @@ public class Menu {
                     sc = new Scanner(System.in);
                     String newName = sc.nextLine();
 
+                    boolean hasUpdated = false;
+
                     for (int i = 0; i < teamList.size(); ++i) {
                         String team = teamList.get(i);
 
                         if (team.equals(updateTeamName)) {
                             teamList.set(i, newName);
+                            hasUpdated = true;
                             break;
                         }
                     }
 
+                    if (!hasUpdated) {
+                        System.out.println("Cannot found team " + updateTeamName);
+                    } else {
+                        System.out.println("The team " + updateTeamName + " has been updated to " + newName);
+                    }
 
                     break;
                 case '4':
