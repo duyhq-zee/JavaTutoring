@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class Association {
     public static void main(String[] args) {
         Teams teams = new Teams();
+        Season season = new Season();
+        season.setCurrentTeams(teams);
 
         Team suns = new Team("Suns");
         teams.tryAddTeam(suns);
@@ -17,6 +19,7 @@ public class Association {
         bulls.tryAddPlayer(new Player("D", 2000, 32, 10));
 
         teams.tryAddTeam(new Team("Hawks"));
+        teams.tryAddTeam(new Team("Moons"));
 
         while (true) {
             System.out.println("1. Explore the teams");
@@ -33,12 +36,89 @@ public class Association {
                     exploreTeamMenu(teams);
                     break;
                 case '2':
-                    System.out.println("2");
+                    exploreSeasonMenu(season);
                     break;
                 case 'X':
                     return;
                 default:
                     System.out.println("Please enter a valid input");
+            }
+        }
+    }
+
+    private static void exploreSeasonMenu(Season season) {
+        while (true) {
+            System.out.println("Welcome...");
+            System.out.println("1. Add a team to the round");
+            System.out.println("2. Display the current round");
+            System.out.println("3. Play games");
+            System.out.println("4. Display the game result records");
+            System.out.println("R. Return to previous menu");
+
+            char option1 = 0;
+
+            System.out.print("Enter a choice: ");
+            Scanner sc = new Scanner(System.in);
+            option1 = sc.nextLine().charAt(0);
+
+            int currentGameIndex = 1;
+            int currentPosition = 1;
+            Game currentGame = new Game();
+
+            switch (option1) {
+                case '1':
+                    while (!season.getCurrentTeams().getTeams().isEmpty()){
+                        System.out.println("The existing team are as follows: ");
+                        for (Team team: season.getCurrentTeams().getTeams()) {
+                            System.out.print(team.getName() + " ");
+                        }
+                        System.out.println();
+                        System.out.print("Please enter the team's name you want to schedule: ");
+                        sc = new Scanner(System.in);
+                        String teamName = sc.nextLine();
+
+                        int teamIndex = season.getCurrentTeams().checkTeamNameExist(teamName);
+
+                        if (currentPosition == 1) {
+                            currentGame = new Game();
+                            Team team1 = season.getCurrentTeams().getTeams().get(teamIndex);
+                            currentGame.setTeam(1, team1);
+                            System.out.println("The team " + teamName + " has been addded to Game " + currentGameIndex + " position " + currentPosition);
+
+                            currentPosition = 2;
+                        } else {
+                            Team team2 = season.getCurrentTeams().getTeams().get(teamIndex);
+                            currentGame.setTeam(2, team2);
+                            season.getScheduledGames().add(currentGame);
+                            System.out.println("The team " + teamName + " has been addded to Game " + currentGameIndex + " position " + currentPosition);
+
+                            currentPosition = 1;
+                            currentGameIndex++;
+                        }
+
+                        season.getCurrentTeams().tryRemoveTeam(teamName);
+                    }
+
+                    break;
+                case '2':
+                    Utils.GameHeader();
+                    for (Game g: season.getScheduledGames()) {
+                        System.out.printf(Utils.GamesFormat, g.getTeam(1).getName(), "vs" , g.getTeam(2).getName());
+                    }
+                    Utils.GameEnd();
+                    break;
+                case '3':
+                    break;
+                case '4':
+                    break;
+                case 'R':
+                    break;
+                default:
+                    System.out.println("Please enter a valid input");
+            }
+
+            if (option1 == 'R') {
+                break;
             }
         }
     }
