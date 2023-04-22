@@ -4,11 +4,15 @@ public class Player {
     private int age;
     private int no;
 
+    private String level;
+
     public Player(String name, float credit, int age, int no) {
         this.name = name;
         this.credit = credit;
         this.age = age;
         this.no = no;
+
+        calculateLevel();
     }
 
     public String getName() {
@@ -41,5 +45,21 @@ public class Player {
 
     public void setNo(int no) {
         this.no = no;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void calculateLevel(){
+        if (credit < 1000) {
+            level = "Edge";
+        } else if (credit < 1500) {
+            level = "Common";
+        } else if (credit < 2000) {
+            level = "Core";
+        } else {
+            level = "All Star";
+        }
     }
 }
