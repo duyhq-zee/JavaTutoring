@@ -112,8 +112,8 @@ public class App {
 
                     Team managingTeam = null;
 
-                    for (Team team: teamList) {
-                        if (team.getName().equals(manageTeamName)){
+                    for (Team team : teamList) {
+                        if (team.getName().equals(manageTeamName)) {
                             managingTeam = team;
                         }
                     }
@@ -161,7 +161,7 @@ public class App {
         }
     }
 
-    public static void manageTeamMenu(Team managingTeam){
+    public static void manageTeamMenu(Team managingTeam) {
         while (true) {
             System.out.println("1. Display team's players");
             System.out.println("2. Add a new player");
@@ -177,7 +177,7 @@ public class App {
             switch (option2) {
                 case '1':
                     Utils.playerHeader();
-                    for (Player player: managingTeam.getPlayerList()) {
+                    for (Player player : managingTeam.getPlayerList()) {
                         System.out.printf(Utils.PlayerFormat, player.getName(), player.getCredit(), player.getLevel(), player.getAge(), player.getNo());
                     }
                     Utils.playerTableEnd();
@@ -197,32 +197,27 @@ public class App {
                     sc = new Scanner(System.in);
                     int age = sc.nextInt();
 
-                    System.out.println("Please enter player's no: ");
+                    System.out.println("Please enter player's No: ");
                     sc = new Scanner(System.in);
                     int no = sc.nextInt();
 
                     String existedPlayerName = "";
 
-                    for (Player player: managingTeam.getPlayerList()) {
+                    for (Player player : managingTeam.getPlayerList()) {
                         if (no == player.getNo()) {
                             existedPlayerName = player.getName();
                             break;
                         }
                     }
 
-                    if (existedPlayerName.equals("")) {
-                        Player newPlayer = new Player(name, credit, age, no);
-                        managingTeam.addPlayer(newPlayer);
-
-                        System.out.println("Player " + name + " added!");
-                    } else {
+                    if (!existedPlayerName.equals("")) {
                         while (true) {
                             System.out.print("This No has been occupied by: " + existedPlayerName + ". Please re-enter the No: ");
                             sc = new Scanner(System.in);
                             no = sc.nextInt();
 
                             existedPlayerName = "";
-                            for (Player player: managingTeam.getPlayerList()) {
+                            for (Player player : managingTeam.getPlayerList()) {
                                 if (no == player.getNo()) {
                                     existedPlayerName = player.getName();
                                     break;
@@ -233,49 +228,79 @@ public class App {
                                 break;
                             }
                         }
-
-                        Player newPlayer = new Player(name, credit, age, no);
-
-                        managingTeam.addPlayer(newPlayer);
-                        System.out.println("Player " + name + " added!");
                     }
+
+                    Player newPlayer = new Player(name, credit, age, no);
+                    managingTeam.addPlayer(newPlayer);
+
+                    System.out.println("Player " + name + " added!");
+
 
                     break;
                 case '3':
-                    System.out.print("Please enter the player's name that you want to delete: ");
+                    System.out.print("Please enter the player's name: ");
                     sc = new Scanner(System.in);
                     String updatePlayerName = sc.nextLine();
 
                     boolean hasUpdatedPlayer = false;
 
                     for (int i = 0; i < managingTeam.getPlayerList().size(); ++i) {
-                        Player player = managingTeam.getPlayerList().get(i);
+                        Player updatingPlayer = managingTeam.getPlayerList().get(i);
 
-                        if (player.getName().equals(updatePlayerName)) {
-                            System.out.println("Please enter player's name: ");
+                        if (updatingPlayer.getName().equals(updatePlayerName)) {
+                            System.out.println("Please enter name: ");
                             sc = new Scanner(System.in);
                             String newName = sc.nextLine();
-                            player.setName(newName);
+                            updatingPlayer.setName(newName);
 
-                            System.out.println("Please enter player's credit: ");
+                            System.out.println("Please enter credit: ");
                             sc = new Scanner(System.in);
                             float newCredit = sc.nextFloat();
-                            player.setCredit(newCredit);
-                            player.calculateLevel();
+                            updatingPlayer.setCredit(newCredit);
+                            updatingPlayer.calculateLevel();
 
 
-                            System.out.println("Please enter player's age: ");
+                            System.out.println("Please enter age: ");
                             sc = new Scanner(System.in);
                             int newAge = sc.nextInt();
-                            player.setAge(newAge);
+                            updatingPlayer.setAge(newAge);
 
 
-                            System.out.println("Please enter player's no: ");
+                            System.out.println("Please enter No: ");
                             sc = new Scanner(System.in);
                             int newNo = sc.nextInt();
-                            player.setNo(newNo);
 
-                            // TODO: Loop check
+                            existedPlayerName = "";
+
+                            for (Player player : managingTeam.getPlayerList()) {
+                                if (newNo != updatingPlayer.getNo() && newNo == player.getNo()) {
+                                    existedPlayerName = player.getName();
+                                    break;
+                                }
+                            }
+
+                            if (!existedPlayerName.equals("")) {
+                                while (true) {
+                                    System.out.print("This No has been occupied by: " + existedPlayerName + ". Please re-enter the No: ");
+                                    sc = new Scanner(System.in);
+                                    no = sc.nextInt();
+
+                                    existedPlayerName = "";
+                                    for (Player player : managingTeam.getPlayerList()) {
+                                        if (no == player.getNo()) {
+                                            existedPlayerName = player.getName();
+                                            break;
+                                        }
+                                    }
+
+                                    if (existedPlayerName.equals("")) {
+                                        break;
+                                    }
+                                }
+                            }
+
+                            updatingPlayer.setNo(newNo);
+                            System.out.println("Player information updated!");
 
                             hasUpdatedPlayer = true;
                             break;
