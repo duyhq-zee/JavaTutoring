@@ -29,6 +29,7 @@ public class Player {
 
     public void setCredit(float credit) {
         this.credit = credit;
+        calculateLevel();
     }
 
     public int getAge() {
