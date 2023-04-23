@@ -9,6 +9,11 @@ public class Team {
         this.players = new Players();
     }
 
+    public Team(String name, Players players) {
+        this.name = name;
+        this.players = players;
+    }
+
     public String getName() {
         return name;
     }
@@ -17,7 +22,11 @@ public class Team {
         this.name = name;
     }
 
-    public ArrayList<Player> getPlayers() {
+    public Players getPlayers() {
+        return players;
+    }
+
+    public ArrayList<Player> getPlayerList() {
         return players.getPlayers();
     }
 
@@ -51,5 +60,11 @@ public class Team {
 
     public boolean tryRemovePlayer (String name) {
         return players.tryRemovePlayer(name);
+    }
+
+    public void updateCredit(float amount) {
+        for (Player p: players.getPlayers()) {
+            p.setCredit(p.getCredit() + amount);
+        }
     }
 }
